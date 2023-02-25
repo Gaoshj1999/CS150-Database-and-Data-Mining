@@ -1,0 +1,120 @@
+#进阶1：基础查询
+/*
+语法：
+select 查询列表 from 表名；
+
+特点：
+1.查询列表可以是：表中的字段、常量值、表达式、函数
+2、查询的结果是一个虚拟的表格
+*/
+#1.查询表中的单个字段
+SELECT 
+  last_name 
+FROM
+  employees ;
+
+#2.查询表中的多个字段
+SELECT 
+  last_name,
+  salary,
+  email 
+FROM
+  employees ;
+
+#3.查询表中的所有字段
+#方式一：
+SELECT 
+  `first_name`,
+  `last_name``email`,
+  `email`,
+  `phone_number`,
+  `job_id`,
+  `salary`,
+  `commission_pct`,
+  `manager_id`,
+  `department_id`,
+  `hiredate` 
+FROM
+  employees ;
+  
+#shift+F12格式化
+#‘`'着重号。用于区别字段和关键字
+#方式二：
+SELECT * FROM employees;
+		
+#4.查询常量值		
+SELECT 100;
+SELECT 'john';
+#默认表格名为查询的常量
+
+#5.查询表达式
+SELECT	100%98;
+
+#6.查询函数
+SELECT VERSION();
+
+#7.起别名
+/*
+1.便于理解
+2.如果要查询的字段有重名的情况，使用别名可以区分开来
+
+*/
+#方式一
+SELECT 100%98 AS 结果;
+SELECT last_name AS 姓,first_name AS 名 FROM employees;
+
+#方式二
+SELECT last_name 姓， first_name 名 FROM employees;
+
+#案例： 查询salary，显示结果为 out put
+SELECT salary AS "out put" FROM employees;
+#如果查询的名称中有关键字，则需要用双引号或者单引号标识出来
+
+#8.去重
+
+#案例：查询员工表中涉及到的所有的部门编号
+SELECT DISTINCT department_id FROM employees;
+
+#9.+号的作用(以及如何作拼接)
+/*
+python中的+号：
+1.运算符，两个操作数都为数值型
+2.连接符，只要有一个操作数为字符串
+
+mysql中的+号：
+仅仅只有一个功能：运算符
+
+select 100+90;两个操作数都为数值型，则做加法运算
+select '123'+90;其中一方为字符型，试图将字符型数值转换为数值型
+			如果转换成功，则继续做加法
+			如果转换失败，则将字符型数值转换为0
+select 'john'+90;
+
+select null+10;只要其中一方为null，则结果肯定是null
+
+*/
+
+#案例：查询员工名和姓连接成一个字段，并显示为 姓名
+SELECT CONCAT(last_name,first_name) AS 姓名 FROM employees;
+#拼接字段中如果存在null，则结果也为null
+#为了输出可以将null转换为想要返回的值(字符也可以)
+SELECT CONCAT(last_name,IFNULL(commission_pct,'a')) FROM employees;
+
+#补充
+#concat函数
+/*
+功能：拼接字符
+select concat(字符1，字符2，字符3...)
+/*
+
+#ifnull函数
+/*
+功能：判断某字段或者表达式是否为null，如果为null返回指定值，否则返回原本的值
+select ifnull(commission_pct,0) from employees;
+*/
+
+#isnull函数
+/*
+功能：判断某字段或表达式是否为null，如果是，则返回1，否则返回0
+select isnull(commission_pct) from employeess;
+*/
