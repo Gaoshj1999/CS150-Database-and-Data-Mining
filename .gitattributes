@@ -1,2 +1,2 @@
-*.py linguist-language=Sql
-*.py linguist-language=Sql
+*.ipynb linguist-language=Sql
+*.ipynb linguist-language=Sql
